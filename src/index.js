@@ -1,5 +1,4 @@
-import add from './add'
-import { mul } from './mul'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-add(10, 5)
-mul(10, 5)
+ReactDOM.render(<div>Hello World</div>, document.getElementById('app'))
