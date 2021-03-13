@@ -9,6 +9,7 @@ import MainPage from './pages/main'
 import ResetCSS from './components/reset-css'
 
 const Container = styled.div`
+  margin: 0 auto;
   max-width: 720px;
   height: 100vh;
 `

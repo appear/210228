@@ -1,0 +1,45 @@
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+
+import Webtoon from './webtoon'
+
+const Title = styled.h3`
+  padding: 10px 16px;
+`
+
+const Container = styled.div`
+  padding: 20px 0;
+`
+
+const ScrollContainer = styled.div`
+  white-space: nowrap;
+  overflow-x: auto;
+`
+
+function NewWebtoon() {
+  const [webtoons, setWebtoons] = useState([])
+
+  useEffect(() => {
+    const fetchNewWebtoons = async () => {
+      const response = await fetch('http://localhost:3000/new')
+      const data = await response.json()
+
+      setWebtoons(data)
+    }
+
+    fetchNewWebtoons()
+  }, [])
+
+  return (
+    <Container>
+      <Title>이달의 신작</Title>
+      <ScrollContainer>
+        {webtoons.map((webtoon) => {
+          return <Webtoon webtoon={webtoon} key={webtoon.id} />
+        })}
+      </ScrollContainer>
+    </Container>
+  )
+}
+
+export default NewWebtoon

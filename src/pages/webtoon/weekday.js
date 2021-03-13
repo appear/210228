@@ -1,7 +1,13 @@
 import React from 'react'
 
+import NewWebtoon from '../../components/webtoon/weekday/new-webtoon'
+
 function WeekdayPage() {
-  return <div>Home</div>
+  return (
+    <div>
+      <NewWebtoon />
+    </div>
+  )
 }
 
 export default WeekdayPage
