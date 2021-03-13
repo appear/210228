@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ROUTES } from '../../constants'
@@ -25,45 +25,19 @@ const Menu = styled(Link)`
   `}
 `
 
-function Header() {
-  const {
-    location: { pathname },
-  } = useHistory()
-
-  const [menu, setMenu] = useState(pathname)
-
-  const handleMenu = (menu) => {
-    setMenu(menu)
-  }
-
+function Header({ tab }) {
   return (
     <Container>
-      <Menu
-        to={ROUTES.WEBTOON.MAIN}
-        on={ROUTES.WEBTOON.MAIN === menu}
-        onClick={() => handleMenu(ROUTES.WEBTOON.MAIN)}
-      >
+      <Menu to={ROUTES.WEBTOON.MAIN} on={'home' === tab}>
         홈
       </Menu>
-      <Menu
-        to={ROUTES.WEBTOON.WEEKDAY}
-        on={ROUTES.WEBTOON.WEEKDAY === menu}
-        onClick={() => handleMenu(ROUTES.WEBTOON.WEEKDAY)}
-      >
+      <Menu to={ROUTES.WEBTOON.WEEKDAY} on={'weekday' === tab}>
         요일별
       </Menu>
-      <Menu
-        to={ROUTES.WEBTOON.FINISH}
-        on={ROUTES.WEBTOON.FINISH === menu}
-        onClick={() => handleMenu(ROUTES.WEBTOON.FINISH)}
-      >
+      <Menu to={ROUTES.WEBTOON.FINISH} on={'finish' === tab}>
         완결
       </Menu>
-      <Menu
-        to={ROUTES.WEBTOON.GENRE}
-        on={ROUTES.WEBTOON.GENRE === menu}
-        onClick={() => handleMenu(ROUTES.WEBTOON.GENRE)}
-      >
+      <Menu to={ROUTES.WEBTOON.GENRE} on={'genre' === tab}>
         베스트도전
       </Menu>
     </Container>
