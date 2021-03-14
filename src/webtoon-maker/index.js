@@ -21,9 +21,13 @@ function WebtoonMaker() {
     },
   ])
 
+  const handleAddWebtoon = (webtoon) => {
+    setWebtoons([...webtoons, webtoon])
+  }
+
   return (
     <div>
-      <Form />
+      <Form onAddWebtoon={handleAddWebtoon} />
 
       {webtoons.map((webtoon, index) => {
         return <Webtoon key={index} webtoon={webtoon} />
