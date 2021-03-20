@@ -49,11 +49,11 @@ const Author = styled.div`
   line-height: 20px;
 `
 
-function Webtoon({ webtoon }) {
+function Webtoon({ webtoon, onClick }) {
   const { imageUrl, title, author } = webtoon
 
   return (
-    <Wrapper>
+    <Wrapper onClick={() => onClick(webtoon)}>
       <Container>
         <Image src={imageUrl} />
         <Info>

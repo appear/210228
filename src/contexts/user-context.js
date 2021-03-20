@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useContext, createContext, useReducer } from 'react'
 
 const Context = createContext()
 
 const SET_USER = 'SET_USER'
 const SET_RECENTLY_VIEWS = 'SET_RECENTLY_VIEWS'
+const RECENTLY_VIEWS = 'RECENTLY_VIEWS'
 
 function reducer(state, action) {
   switch (action.type) {
@@ -15,9 +16,13 @@ function reducer(state, action) {
       }
     }
     case SET_RECENTLY_VIEWS: {
+      if (state.recentlyViewes.find(({ id }) => id === action.payload.id)) {
+        return { ...state }
+      }
+
       return {
         ...state,
-        recentlyViewes: action.payload,
+        recentlyViewes: [...state.recentlyViewes, action.payload],
       }
     }
     default: {
@@ -26,26 +31,30 @@ function reducer(state, action) {
   }
 }
 
-const INITIAL_STATE = {
-  user: {
-    name: '올라프',
-  },
-  recentlyViewes: [],
-}
-
 export function UserContextProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
+  const [state, dispatch] = useReducer(reducer, {
+    user: {
+      name: '올라프',
+    },
+    recentlyViewes: JSON.parse(localStorage.getItem(RECENTLY_VIEWS) || '[]'),
+  })
 
   const action = {
     setUser: (user) => {
       dispatch({ type: SET_USER, payload: user })
     },
-    setRecentlyViewes: (recentlyViewes) => {
-      dispatch({ type: SET_RECENTLY_VIEWS, payload: recentlyViewes })
+    setRecentlyViewes: (webtoon) => {
+      dispatch({ type: SET_RECENTLY_VIEWS, payload: webtoon })
     },
   }
 
-  return <Context value={{ state, action }}>{children}</Context>
+  useEffect(() => {
+    localStorage.setItem(RECENTLY_VIEWS, JSON.stringify(state.recentlyViewes))
+  }, [state.recentlyViewes])
+
+  return (
+    <Context.Provider value={{ state, action }}>{children}</Context.Provider>
+  )
 }
 
 export function useUserContext() {
