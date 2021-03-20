@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import ResetCSS from './components/reset-css'
 import { ROUTES } from './constants'
 
+import { UserContextProvider } from './contexts/user-context'
 import HomePage from './pages/home'
 import WebtoonPage from './pages/webtoon'
 
@@ -18,16 +19,18 @@ function App() {
   return (
     <Container>
       <ResetCSS />
-      <BrowserRouter>
-        <Switch>
-          <Route exact path={ROUTES.HOME}>
-            <HomePage />
-          </Route>
-          <Route path={ROUTES.WEBTOON}>
-            <WebtoonPage />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <UserContextProvider>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path={ROUTES.HOME}>
+              <HomePage />
+            </Route>
+            <Route path={ROUTES.WEBTOON}>
+              <WebtoonPage />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </UserContextProvider>
     </Container>
   )
 }
