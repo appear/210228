@@ -7,6 +7,7 @@ import HomePage from './home'
 import WeekdayPage from './weekday'
 import GenrePage from './genre'
 import FinishPage from './finish'
+import DetailPage from './detail'
 
 function WebtoonPage() {
   return (
@@ -22,6 +23,9 @@ function WebtoonPage() {
       </Route>
       <Route path={ROUTES.WEBTOON.FINISH}>
         <FinishPage />
+      </Route>
+      <Route path={`${ROUTES.WEBTOON.HOME}/:id`}>
+        <DetailPage />
       </Route>
     </Switch>
   )
